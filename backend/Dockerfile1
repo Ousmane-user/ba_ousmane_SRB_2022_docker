@@ -10,7 +10,7 @@ COPY . .
 
 EXPOSE 8080
 
-CMD ['yark.lock', 'server.js']
+CMD ['yarn.lock', 'server.js']
 
 #docker build image -t dockerfile1:1.0
 
