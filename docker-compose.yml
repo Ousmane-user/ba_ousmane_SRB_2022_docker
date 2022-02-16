@@ -28,8 +28,8 @@ services:
       MONGODB_INITDB_ROOT_USERNAME: ousmane
       MONGODB_INITDB_ROOT_PASSWORD: ousmane
     # uncomment following lines to access db locally
-    # ports:
-    #   - 80007:80007
+    ports:
+     - "80007:80007"
     networks: 
      - network-backend
 
