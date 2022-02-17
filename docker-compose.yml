@@ -22,13 +22,11 @@ services:
     image: mongo:latest
     restart: always
     volumes: 
-      - mongodb_data: /database/db
+      - mongodb_data:/database/db
     environment: 
       MONGODB_INITDB_ROOT_USERNAME: ousmane
       MONGODB_INITDB_ROOT_PASSWORD: ousmane
-    # uncomment following lines to access db locally
-    ports:
-     - "80007:80007"
+    
     networks: 
      - network-backend
 
@@ -36,4 +34,4 @@ networks:
   network-backend:
 
 volumes: 
-  mongodb_data: /database/mango/mangodb_data
+  mongodb_data:
