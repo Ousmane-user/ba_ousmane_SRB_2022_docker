@@ -1,0 +1,41 @@
+version: "3"
+services:
+
+
+  web:
+    build: ./frontend
+    depends_on:
+      - api
+    ports:
+      - "8022:80"
+    networks:
+      - back
+
+
+  api:
+    build: ./backend
+    depends_on:
+      - mongo
+    ports:
+      - "8099:8080"
+    networks: 
+     - back
+
+
+  mongo:
+    image: mongo
+    restart: always
+    volumes: 
+      - mongodb_data:/database/db
+    environment: 
+      MONGODB_INITDB_ROOT_USERNAME: ousmane
+      MONGODB_INITDB_ROOT_PASSWORD: ousmane
+
+    networks: 
+     - back
+
+networks:
+  back:
+
+volumes: 
+  mongodb_data:
