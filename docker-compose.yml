@@ -16,7 +16,7 @@ services:
     ports:
       - "8099:8080"
     networks: 
-     - network-backend
+     - network
   
   mongo:
     image: mongo:latest
@@ -28,10 +28,10 @@ services:
       MONGODB_INITDB_ROOT_PASSWORD: ousmane
     
     networks: 
-     - network-backend
+     - network
 
 networks:
-  network-backend:
+  network
 
 volumes: 
   mongodb_data:
