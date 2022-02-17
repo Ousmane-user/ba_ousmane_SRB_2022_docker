@@ -1,12 +1,11 @@
-version: "3.8"  # Spécification de la version du docker-compose
+version: "3.8"  
 
-# Définir les services afin de pouvoir lancer le container
 services:
   web:
-    build: ./frontend   # Spécification du répertoire du Dockerfile
+    build: ./frontend  
     depends_on:
       - api 
-    ports:    # Spécification du port d'écoute
+    ports:    
       - "8022:80"
     networks:
       - network
@@ -23,7 +22,7 @@ services:
     image: mongo:latest
     restart: always
     volumes: 
-      - mongodb_data:/database/db
+      - mongodb_data: /database/db
     environment: 
       MONGODB_INITDB_ROOT_USERNAME: ousmane
       MONGODB_INITDB_ROOT_PASSWORD: ousmane
