@@ -85,8 +85,7 @@ services:
     networks:
       - back
 
-
-  api:
+api:
     build: ./backend
     depends_on:
       - mongo
@@ -95,8 +94,7 @@ services:
     networks: 
      - back
 
-
-  mongo:
+ mongo:
     image: mongo
     restart: always
     volumes: 
