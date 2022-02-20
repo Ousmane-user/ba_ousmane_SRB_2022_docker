@@ -57,3 +57,65 @@ COPY . .
 EXPOSE 3000
 
 CMD ["npm", "start"]
+
+# DOCKER-COMPOSE 
+
+Nous allons passer maintenant au docker-compose qui est un fichier qui va nous permettre de lancer notre architecture complète en une seule ligne de commande :
+
+Ceux dont on a besoin pour notre docker-compose : 
+- 3 services à spécifier pour la création de notre docker-compose : web, api et mongodb
+
+Tout d'abord, nous créeons un fichier docker-compose.yml, on spécifie la version 3.8 de notre mangobd.
+Dans la partie "web", nous spécifions le port "3000:3000". Notre application s'éxécutera sur ce port à l'interieur du conteneur.
+Dans la partie "api" dans "build:" nous spécifions la synthaxe ./backend qui va indiquer à Docker de créer l'image API avec l'aide du Dockerfile du repertoire backend.
+Le conteneur db est connecté à back (networks), dans notre api et mongodb pourront interagir ensemble. 
+Dans la partie mangodb, nous utilisons une image basée sur mongo. La variable environnement: sera utilisé pour l'initialisation du serveur MONGODB avec l'utilisateur et le mot de passe. 
+Dans le volume "mangodb_data:/database/db dans le conteneur, les fichiers à l'interieur de ce repertoire s'éxécuteront quand la base de données sera créée.
+
+Voici donc à quoi devrait ressembler notre docker-compose.yml
+
+version: "3.8"
+services:
+  web:
+    build: ./frontend
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+    networks:
+      - back
+
+
+  api:
+    build: ./backend
+    depends_on:
+      - mongo
+    ports:
+      - "8080:8080"
+    networks: 
+     - back
+
+
+  mongo:
+    image: mongo
+    restart: always
+    volumes: 
+      - mongodb_data:/database/db
+    environment: 
+      MONGODB_INITDB_ROOT_USERNAME: ousmane
+      MONGODB_INITDB_ROOT_PASSWORD: ousmane
+
+    networks: 
+     - back
+
+networks:
+  back:
+
+volumes: 
+  mongodb_data:
+
+# DANS LA PARTIE POWERSHELL
+
+Nous lançeons la commande "docker-compose up" pour lancer toute l'architecture en une seule fois. 
+Pour supprimer l'image, nous lançeons la commande "docker image rm" suivi de "l'image ID" ou plusieurs "images ID" avec la meme commande.
+Pour supprimer les conteneurs, nous lançeons la commande "docker-compose down" et pour stopper le conteneur nous lançeons la commande "docker stop".
